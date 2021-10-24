@@ -6,7 +6,7 @@ class Prepareform
 {
     public function getDeleteForm()
     {
-        /*return '<div class=\'modal fade\' id=\'deleteElement\'>
+        return '<div class=\'modal fade\' id=\'deleteElement\'>
         <div class=\'modal-dialog\'>
             <div class=\'modal-content\'>
                 <div class=\'modal-header\'>
@@ -21,9 +21,7 @@ class Prepareform
                 </div>
             </div>
         </div>
-    </div>';*/
-
-    return '<div>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</div>'
+    </div>';
     
     }
     public function getUpdateForm($table)

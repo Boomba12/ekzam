@@ -11,8 +11,8 @@ class Tableoperation
     public function Delete($id,$type)
     {
         Loader::includeModule("highloadblock"); 
-        $hbId = $this->selectId($type);
-        $class = $this->getDataClass($hbId);
+        $hbId = self::selectId($type);
+        $class = self::getDataClass($hbId);
         $class::Delete($id);
     }
     public function Update($id,$type,$value)
@@ -51,7 +51,7 @@ class Tableoperation
     public function getDataClass($blockId)
     {
         Loader::includeModule("highloadblock"); 
-        $hlblock = HighloadBlockTable::getById($hbId)->fetch();
+        $hlblock = HighloadBlockTable::getById($blockId)->fetch();
         $entity = HighloadBlockTable::compileEntity($hlblock); 
         return $entity->getDataClass(); 
 
