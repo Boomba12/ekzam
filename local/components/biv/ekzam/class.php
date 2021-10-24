@@ -35,7 +35,6 @@ class CEkzam extends CBitrixComponent
                 'DESCRIPTION' => $task['DESCRIPTION']
             ];
         }
-
         return $build;
     }
 
