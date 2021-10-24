@@ -7,7 +7,7 @@
     <label for="tab-btn-1">Задачи</label>
     <input type="radio" name="tab-btn" id="tab-btn-2" value="">
     <label for="tab-btn-2">Исполнители</label>
-
+aaaaa
     <div id="content-1">
         <?foreach ($arResult['TASKS'] as $key => $task):?>
             <div class='row'>
