@@ -8,24 +8,23 @@ class CEkzam extends CBitrixComponent
 {
     public function onPrepareComponentParams($arParams)
     {
-        $result = [
+        $arParams = [
             'CACHE_TYPE' => $arParams['CACHE_TYPE'],
             'CACHE_TIME' => isset($arParams['CACHE_TIME']) ?$arParams['CACHE_TIME']: 36000,
         ];
-        return $result;
+        return $arParams;
     }
     public function executeComponent()
     {
-        $arTask = self::getTask();
-        $arState = self::getState();
-        
-        $arResult['EXECUTORS'] = $arExec = self::getExecutor();
-        $arResult['TASKS'] = self::builder($arTask,$arExec,$arState);
+
+        $this->arResult['STATES'] = $arState =  $this->getState();
+        $this->arResult['EXECUTORS'] = $arExec =  $this->getExecutor();
+        $this->arResult['TASKS'] =  $this->builder($this->getTask(),$arExec,$arState);
 
         $this->includeComponentTemplate();
     }
 
-    private function builder($arTask,$arExec,$arState)
+    public function builder($arTask,$arExec,$arState)
     {
         foreach ($arTask as $key => $task) {
             $build[$key] = [
@@ -38,7 +37,7 @@ class CEkzam extends CBitrixComponent
         return $build;
     }
 
-    private function getTask()
+    public function getTask()
     {
         Loader::includeModule('highloadblock');
 
@@ -60,17 +59,17 @@ class CEkzam extends CBitrixComponent
         );
         while($element = $dbResult->Fetch()){
             $arData[$element['ID']] = [
-                'NAME' => $element['US_TASK_NAME'],
-                'EXECUTOR' => $element['US_TASK_EXECUTOR'],
-                'STATE' => $element['US_TASK_STATE'],
-                'DESCRIPTION' => $element['US_TASK_DESCRIPTION']
+                'NAME' => $element['UF_TASK_NAME'],
+                'EXECUTOR' => $element['UF_TASK_EXECUTOR'],
+                'STATE' => $element['UF_TASK_STATE'],
+                'DESCRIPTION' => $element['UF_TASK_DESCRIPTION']
             ];
         }
 
         return $arData;
     }
 
-    private function getExecutor()
+    public function getExecutor()
     {
         Loader::includeModule('highloadblock');
 
@@ -90,14 +89,14 @@ class CEkzam extends CBitrixComponent
         );
         while($element = $dbResult->Fetch()){
             $arData[$element['ID']] = [
-                'NAME' => $element['US_EXECUTOR_NAME'],
-                'POSITION' => $element['US_EXECUTOR_POSITION'],
+                'NAME' => $element['UF_NAME_EXECUTOR'],
+                'POSITION' => $element['UF_POSITION_EXECUTOR'],
             ];
         }
         return $arData;
     }
 
-    private function getState()
+    public function getState()
     {
         Loader::includeModule('highloadblock');
 
@@ -117,7 +116,7 @@ class CEkzam extends CBitrixComponent
         );
         while($element = $dbResult->Fetch()){
             $arData[$element['ID']] = [
-                'NAME' => $element['US_STATE_NAME'],
+                'NAME' => $element['UF_STATE_NAME'],
             ];
         }
         return $arData;
