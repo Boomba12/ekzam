@@ -1,114 +1,87 @@
 $(document).ready(function() {
     $('.delete').click(function(e) {
         e.preventDefault();
+        var id = $(this).data('id');
+        var type = $(this).data('type');
         $.ajax({
-            method: "POST",
-            url: "/ajax/tasks/ajax_form.php",
+            method: "GET",
+            url: "/ajax/tasks/ajax.php",
             dataType: "json",
             data: {
-                'id': $(this).data('id'),
-                'type': $(this).data('type'),
+                'id': id,
+                'type': type,
                 'event': 'delete'
             },
             success: function(data) {
-                console.log(data);
-                $('body').append(data);/*
-            	$('.tab-container').css({"display":"flex"});
-            	$('.modal .fade').fadeIn();*/
-                var myModal = new jBox ( 'Modal' ,  { 
-                    attach :  '#deleteElement' ,  
-                  } ) ;
-                myModal.open();
+                alert('Успешно');
+                $(`tr[data-row_id="${id}"][data-type="${type}"]`).remove();
             },
             error: (error) => {
                 console.log(JSON.stringify(error));
             }
         });
     })
-});
 
-$(document).ready(function() {
-    $('.add').click(function(e) {
-        e.preventDefault();
-        $.ajax({
-            method: "POST",
-            url: "/ajax/tasks/ajax_form.php",
-            dataType: "json",
-            data: {
-                'id': $(this).data('id'),
-                'type': $(this).data('type'),
-                'event': 'add'
-            },
-            success: function(data) {
-                console.log(data);
-               /* $('body').append(data);
-            	$('.tab-container').css({"display":"flex"});
-            	$('.modal .fade').fadeIn();*/
-            },
-            error: (error) => {
-                console.log(JSON.stringify(error));
-            }
-        });
-    })
-});
-
-$(document).ready(function() {
-    $('.update').click(function(e) {
-        e.preventDefault();
-        $.ajax({
-            method: "GET",
-            url: "/ajax/tasks/ajax_form.php",
-            dataType: "json",
-            data: {
-                'id': $(this).data('id'),
-                'type': $(this).data('type'),
-                'event': 'update'
-            },
-            success: function(data) {
-                console.log(data);
-                $('body').append(data);
-            	$('.tab-container').css({"display":"flex"});
-            	$('.modal .fade').fadeIn();
-            },
-            error: (error) => {
-                console.log(JSON.stringify(error));
-            }
-        });
-    })
-});
-$(document).ready(function() {
-    $('.cancel').click(function(e) {
-       $('#deleteElement').remove();
-    })
-});
-
-$(document).ready(function() {
     $('.test').click(function(e) {
-        e.preventDefault();
-        $.ajax({
-            method: "GET",
-            url: "/ajax/tasks/ajax_form.php",
-            contentType: 'application/json; charset=utf-8',
-            dataType: "json",
-            data: {
-                'id': 1,
-                'type': 'task',
-                'event': 'delete'
-            },
-            success: function(data) {
-                console.log('work');
-                console.log(data);
-                $('body').append(data);
-                $.fancybox.open({
-                    src: '#delete_window',
-                    type: 'inline'
-                });
-            },
-            error: (error) => {
-                console.log(JSON.stringify(error));
+        $.fancybox.open({
+            type: 'ajax',		
+            src: '/ajax/tasks/ajax_test.php',
+            ajax: {
+               settings : {
+                   data : {
+                    'type': 'task',
+                    'event': 'delete'
+                   }
+               }
             }
         });
+        return false;
+    })
 
+    $('.add[data-type="task"]').click(function(e) {
+        $.fancybox.open({
+            type: 'ajax',		
+            src: '/ajax/tasks/ajax_add_form_task.php' 
+        });
+        return false;
+    })
+    $('.add[data-type="exec"]').click(function(e) {
+        $.fancybox.open({
+            type: 'ajax',		
+            src: '/ajax/tasks/ajax_add_form_exec.php'
+        });
+        return false;
+    })
+
+    $('.update[data-type="task"]').click(function(e) {
+        $.fancybox.open({
+            type: 'ajax',		
+            src: '/ajax/tasks/ajax_update_form_task.php',
+            ajax: {
+               settings : {
+                   data : {
+                    'id': $(this).data('id'),
+                    'type': 'task'
+                   }
+               }
+            }
+        });
+       // return false;
+    })
+
+    $('.update[data-type="exec"]').click(function(e) {
+        $.fancybox.open({
+            type: 'ajax',		
+            src: '/ajax/tasks/ajax_update_form_exec.php',
+            ajax: {
+               settings : {
+                   data : {
+                    'id': $(this).data('id'),
+                    'type': 'exec'
+                   }
+               }
+            }
+        });
+        return false;
     })
 });
-

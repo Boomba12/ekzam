@@ -1,7 +1,7 @@
 <?php
 
 use Bitrix\Main\Loader;
-use Bitrix\Highloadblock; 
+use Bitrix\Highloadblock\HighloadBlockTable; 
 use Bitrix\Main\Entity;
 
 class CEkzam extends CBitrixComponent
@@ -42,9 +42,9 @@ class CEkzam extends CBitrixComponent
         Loader::includeModule('highloadblock');
 
         $hlbl = 5; 
-        $hlblock = Highloadblock\HighloadBlockTable::getById($hlbl)->fetch(); 
+        $hlblock = HighloadBlockTable::getById($hlbl)->fetch(); 
 
-        $entity = Highloadblock\HighloadBlockTable::compileEntity($hlblock); 
+        $entity = HighloadBlockTable::compileEntity($hlblock); 
         $entity_data_class = $entity->getDataClass(); 
 
         $dbResult = $entity_data_class::getList(
@@ -74,8 +74,8 @@ class CEkzam extends CBitrixComponent
         Loader::includeModule('highloadblock');
 
         $hlbl = 6; 
-        $hlblock = Highloadblock\HighloadBlockTable::getById($hlbl)->fetch(); 
-        $entity = Highloadblock\HighloadBlockTable::compileEntity($hlblock); 
+        $hlblock = HighloadBlockTable::getById($hlbl)->fetch(); 
+        $entity = HighloadBlockTable::compileEntity($hlblock); 
         $entity_data_class = $entity->getDataClass(); 
         $dbResult = $entity_data_class::getList(
             [
@@ -101,8 +101,8 @@ class CEkzam extends CBitrixComponent
         Loader::includeModule('highloadblock');
 
         $hlbl = 7; 
-        $hlblock = Highloadblock\HighloadBlockTable::getById($hlbl)->fetch(); 
-        $entity = Highloadblock\HighloadBlockTable::compileEntity($hlblock); 
+        $hlblock = HighloadBlockTable::getById($hlbl)->fetch(); 
+        $entity = HighloadBlockTable::compileEntity($hlblock); 
         $entity_data_class = $entity->getDataClass(); 
         $dbResult = $entity_data_class::getList(
             [

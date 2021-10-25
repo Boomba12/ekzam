@@ -18,7 +18,7 @@
                 </thead>
                 <tbody>
                     <?foreach ($arResult['TASKS'] as $key => $task):?>
-                        <tr class='table'>
+                        <tr class='table' data-row_id='<?=$key?>' data-type='task'>
                             <th scope="row" class='task-id'><?=$key?></th>
                             <td class='task-name'><?=$task['NAME']?></td>
                             <td class='task-state'><?=$task['STATE']?></td>
@@ -28,7 +28,7 @@
                                 <button type="button" class="btn btn-primary delete" data-id='<?=$key?>' data-type='task'>
                                     <?=GetMessage('BUTTON_DELETE')?>
                                 </button>
-                                <button type="button" class="btn btn-primary update" data-toggle="modal" data-target="#changeElementTask" data-id='<?=$key?>'>
+                                <button type="button" class="btn btn-primary update" data-id='<?=$key?>' data-type='task'>
                                     <?=GetMessage('BUTTON_UPDATE')?>
                                 </button>
                             </td>
@@ -37,7 +37,7 @@
                 </tbody>
             </table>
             <div>
-                <button type="button" class="btn btn-primary add" data-toggle="modal" data-target="#addElementTask">
+                <button type="button" class="btn btn-primary add" data-type='task'>
                     <?=GetMessage('BUTTON_ADD')?>
                 </button>
             </div>
@@ -56,15 +56,15 @@
                 </thead>
                 <tbody>
                     <?foreach ($arResult['EXECUTORS'] as $key => $exec):?>
-                        <tr class='table'>
+                        <tr class='table' data-row_id='<?=$key?>' data-type='exec'>
                             <th scope="row" class='exec-id'><?=$key?></th>
                             <td class='exec-name'><?=$exec['NAME']?></td>
                             <td class='exec-poasition'><?=$exec['POSITION']?></td>
                             <td class='task-buttons'>
-                                <button type="button" class="btn btn-primary delete" data-toggle="modal" data-target="#deleteElement" data-id='<?=$key?>' data-type='exec'>
+                                <button type="button" class="btn btn-primary delete" data-id='<?=$key?>' data-type='exec'>
                                     <?=GetMessage('BUTTON_DELETE');?>
                                 </button>
-                                <button type="button" class="btn btn-primary update" data-toggle="modal" data-target="#changeElementExec" data-id='<?=$key?>'>
+                                <button type="button" class="btn btn-primary update" data-id='<?=$key?>' data-type='exec'>
                                     <?=GetMessage('BUTTON_UPDATE');?>
                                 </button>
                             </td>
@@ -73,7 +73,7 @@
                 </tbody>
             </table>
             <div>
-                <button type="button" class="btn btn-primary add" data-toggle="modal" data-target="#addElementExec">
+                <button type="button" class="btn btn-primary add" data-type='exec'>
                     <?=GetMessage('BUTTON_ADD')?>
                 </button>
             </div>
@@ -81,8 +81,5 @@
     </div>
 </div>
 <button type="button" class="btn btn-primary test" data-id='1' data-type='task'>Test</button>
-
-
-
 
 

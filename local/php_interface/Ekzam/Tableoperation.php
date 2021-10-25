@@ -8,6 +8,75 @@ use Bitrix\Main\Loader,
 
 class Tableoperation
 {
+    public function getFields($id,$type)
+    {
+        $hbId = self::selectId($type);
+        $class = self::getDataClass($hbId);
+        return $class::getList(
+            [
+                'select' => [
+                    '*'
+                ],
+                'order' => [
+                    'ID' => 'ASC'
+                ]
+            ]
+        )->Fetch();
+    }
+
+    public function getExecutor()
+    {
+        Loader::includeModule('highloadblock');
+
+        $hlbl = 6; 
+        $hlblock = HighloadBlockTable::getById($hlbl)->fetch(); 
+        $entity = HighloadBlockTable::compileEntity($hlblock); 
+        $entity_data_class = $entity->getDataClass(); 
+        $dbResult = $entity_data_class::getList(
+            [
+                'select' => [
+                    '*'
+                ],
+                'order' => [
+                    'ID' => 'ASC'
+                ]
+            ]
+        );
+        while($element = $dbResult->Fetch()){
+            $arData[$element['ID']] = [
+                'NAME' => $element['UF_NAME_EXECUTOR'],
+                'POSITION' => $element['UF_POSITION_EXECUTOR'],
+            ];
+        }
+        return $arData;
+    }
+
+    public function getState()
+    {
+        Loader::includeModule('highloadblock');
+
+        $hlbl = 7; 
+        $hlblock = HighloadBlockTable::getById($hlbl)->fetch(); 
+        $entity = HighloadBlockTable::compileEntity($hlblock); 
+        $entity_data_class = $entity->getDataClass(); 
+        $dbResult = $entity_data_class::getList(
+            [
+                'select' => [
+                    '*'
+                ],
+                'order' => [
+                    'ID' => 'ASC'
+                ]
+            ]
+        );
+        while($element = $dbResult->Fetch()){
+            $arData[$element['ID']] = [
+                'NAME' => $element['UF_STATE_NAME'],
+            ];
+        }
+        return $arData;
+    }
+
     public function Delete($id,$type)
     {
         Loader::includeModule("highloadblock"); 
@@ -17,26 +86,34 @@ class Tableoperation
     }
     public function Update($id,$type,$value)
     {
-        $hbId = $this->selectId($type);
-        $class = $this->getDataClass($hbId);
-        $result = $class::update($id, $value);
-        if ($result->isSuccess()) {
-            return 'Y';
+        $hbId = self::selectId($type);
+        $class = self::getDataClass($hbId);
+        $data = self::prepareData($hbId,$value);
+        if ($data) {
+            $result = $class::update($id, $data);
+            if ($result->isSuccess()) {
+                return 'Y';
+            } else {
+                return $result->getErrors();
+            }
         } else {
-            return $result->getErrors();
-        } 
+            return false;
+        }
     }
-    public function Add($id,$type,$value)
+    public function Add($type,$value)
     {
-        $hbId = $this->selectId($type);
-        
-        $class = $this->getDataClass($hbId);
-        $result = $class::add($value);
-
-        if ($result->isSuccess()) {
-            return 'Y';
+        $hbId = self::selectId($type);
+        $class = self::getDataClass($hbId);
+        $data = self::prepareData($hbId,$value);
+        if ($data) {
+            $result = $class::add($data);
+            if ($result->isSuccess()) {
+                return 'Y';
+            } else {
+                return $result->getErrors();
+            }
         } else {
-            return $result->getErrors();
+            return false;
         }
     }
     public function selectId($type)
@@ -45,6 +122,26 @@ class Tableoperation
             return 6;
         } elseif ($type == 'task') {
             return 5;
+        }
+    }
+    public function prepareData($hlblockID,$value)
+    {
+        if ($hlblockID == 6) {
+            $arResult = [
+                'UF_NAME_EXECUTOR' => $value['NAME'],
+                'UF_POSITION_EXECUTOR' => $value['POSITION']
+            ];
+            return $arResult;
+        } elseif ($hlblockID == 5) {
+            $arResult = [
+                'UF_TASK_NAME' => $value['NAME'],
+                'UF_TASK_STATE' => $value['STATE'],
+                'UF_TASK_EXECUTOR' => $value['EXECUTOR'],
+                'UF_TASK_DESCRIPTION' => $value['DESCRIPTION'],
+            ];
+            return $arResult;
+        } else {
+            return false;
         }
     }
 
