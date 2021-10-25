@@ -87,17 +87,22 @@ $(document).ready(function() {
         e.preventDefault();
         $.ajax({
             method: "GET",
-            url: "/ajax/tasks/ajax.php",
+            url: "/ajax/tasks/ajax_form.php",
             contentType: 'application/json; charset=utf-8',
             dataType: "json",
             data: {
                 'id': 1,
                 'type': 'task',
-                'event': 'delete',
+                'event': 'delete'
             },
             success: function(data) {
                 console.log('work');
                 console.log(data);
+                $('body').append(data);
+                $.fancybox.open({
+                    src: '#delete_window',
+                    type: 'inline'
+                });
             },
             error: (error) => {
                 console.log(JSON.stringify(error));

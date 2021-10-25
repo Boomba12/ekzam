@@ -27,28 +27,3 @@ if ($type == 'delete') {
     echo json_encode($table);
 }
 
-
-/*
-$type = $_GET['event'];
-
-if ($type == 'delete') {
-    $id = $request['id'];
-    $table = $request['type'];
-    Tableoperation::Delete($id,$table)
-    echo json_encode('Y');
-   
-} elseif ($type == 'add') {
-    $table = $request->getPost('type');
-   
-    echo json_encode($answer);
-    
-} elseif ($type == 'update') {
-    $table = $request->getPost('type');
-    echo json_encode($answer);
-    
-} else {
-    $table = $_GET['type'];
-    echo json_encode($_GET);
-    
-}
-*/
