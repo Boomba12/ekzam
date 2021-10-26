@@ -48,7 +48,10 @@ $(document).ready(function() {
     $('.add[data-type="exec"]').click(function(e) {
         $.fancybox.open({
             type: 'ajax',		
-            src: '/ajax/tasks/ajax_add_form_exec.php'
+            src: '/ajax/tasks/ajax_add_form_exec.php',
+            success: function(data) {
+                console.log(data);
+            },
         });
         return false;
     })

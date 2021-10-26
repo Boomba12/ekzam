@@ -33,8 +33,9 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/bitrix/modules/main/include/prolog_befo
                     'data': $data
                 },
                 success: function(data) {
-                    alert('Успешно добавлено');
-                    $.fancybox.close();
+                    console.log(data);
+                   // alert('Успешно добавлено');
+                   // $.fancybox.close();
                 },
                 error: (error) => {
                     console.log(JSON.stringify(error));

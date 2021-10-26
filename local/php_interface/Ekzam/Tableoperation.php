@@ -88,11 +88,11 @@ class Tableoperation
     {
         $hbId = self::selectId($type);
         $class = self::getDataClass($hbId);
-        $data = self::prepareData($hbId,$value);
+        $data = self::decodeData($hbId,$value);
         if ($data) {
             $result = $class::update($id, $data);
             if ($result->isSuccess()) {
-                return 'Y';
+                return self::encodeData($hbId,$data);
             } else {
                 return $result->getErrors();
             }
@@ -104,11 +104,11 @@ class Tableoperation
     {
         $hbId = self::selectId($type);
         $class = self::getDataClass($hbId);
-        $data = self::prepareData($hbId,$value);
+        $data = self::decodeData($hbId,$value);
         if ($data) {
             $result = $class::add($data);
             if ($result->isSuccess()) {
-                return 'Y';
+                return self::encodeData($hbId,$data);
             } else {
                 return $result->getErrors();
             }
@@ -124,7 +124,7 @@ class Tableoperation
             return 5;
         }
     }
-    public function prepareData($hlblockID,$value)
+    public function decodeData($hlblockID,$value)
     {
         if ($hlblockID == 6) {
             $arResult = [
@@ -138,6 +138,27 @@ class Tableoperation
                 'UF_TASK_STATE' => $value['STATE'],
                 'UF_TASK_EXECUTOR' => $value['EXECUTOR'],
                 'UF_TASK_DESCRIPTION' => $value['DESCRIPTION'],
+            ];
+            return $arResult;
+        } else {
+            return false;
+        }
+    }
+
+    public function encodeData($hlblockID,$value)
+    {
+        if ($hlblockID == 6) {
+            $arResult = [
+                'NAME' => $value['UF_NAME_EXECUTOR'],
+                'POSITION' => $value['UF_POSITION_EXECUTOR'],
+            ];
+            return $arResult;
+        } elseif ($hlblockID == 5) {
+            $arResult = [
+                'NAME' => $value['UF_TASK_NAME'],
+                'STATE' => $value['UF_TASK_STATE'],
+                'EXECUTOR' => $value['UF_TASK_EXECUTOR'],
+                'DESCRIPTION' => $value['UF_TASK_DESCRIPTION'],
             ];
             return $arResult;
         } else {
