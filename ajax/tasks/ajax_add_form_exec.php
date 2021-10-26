@@ -38,7 +38,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/bitrix/modules/main/include/prolog_befo
                         .append(`<td class='exec-buttons'></td>`);
                         $(newRow).find('.exec-buttons').append(`<button type='button' class='btn btn-primary delete' data-id='${data['ID']}' data-type='exec'>Удалить</button>`)
                         .append(' ')
-                        .append(`<button type='button' class='btn btn-primary update' data-id='${data['ID']}' data-type='exec'>Добавить</button>`);
+                        .append(`<button type='button' class='btn btn-primary update' data-id='${data['ID']}' data-type='exec'>Редактировать</button>`);
                     $('#exec_body').append(newRow); 
                     $.fancybox.close();
                 },

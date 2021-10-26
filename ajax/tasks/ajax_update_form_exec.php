@@ -8,8 +8,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/bitrix/modules/main/include/prolog_befo
 
 $request = Context::getCurrent()->getRequest();
 $id = $request->get('id');
-$type = $request->get('type');
-$arResult = Tabletaskoperation::getFields($id);
+$arResult = Tableexecoperation::getFields($id);
 ?>
 <div class="wind" id="form">
         <div class="mb-3">
