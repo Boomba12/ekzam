@@ -66,6 +66,7 @@ $arState = Tablestateoperation::getStates();
                     $(`tr[data-row_id="${data['ID']}"]`).find('.task-executor').text(`${data['EXECUTOR_NAME']}`);
                     $(`tr[data-row_id="${data['ID']}"]`).find('.task-descr').text(`${data['DESCRIPTION']}`);
                     $.fancybox.close();
+                    $.fancybox.open("Задача изменена");
                 },
                 error: (error) => {
                     console.log(JSON.stringify(error));

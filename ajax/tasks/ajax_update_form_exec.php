@@ -45,6 +45,7 @@ $arResult = Tableexecoperation::getFields($id);
                     $(`tr[data-row_id="${data['ID']}"]`).find('.exec-name').text(`${data['NAME']}`);
                     $('#task_body').find(`.task-executor[data-exec_id="${data['ID']}"]`).text(`${data['NAME']}`);
                     $.fancybox.close();
+                    $.fancybox.open("Исполнитель изменён");
                 },
                 error: (error) => {
                     console.log(JSON.stringify(error));

@@ -68,6 +68,7 @@ $arState = Tablestateoperation::getStates();
                         .append(`<button type='button' class='btn btn-primary update' data-id='${data['ID']}' data-type='task'>Редактировать</button>`);
                     $('#task_body').append(newRow); 
                     $.fancybox.close();
+                    $.fancybox.open("Задача добавлена");
                 },
                 error: (error) => {
                     console.log(JSON.stringify(error));

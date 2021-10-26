@@ -42,6 +42,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/bitrix/modules/main/include/prolog_befo
                     .append(`<button type='button' class='btn btn-primary update' data-id='${data['ID']}' data-type='exec'>Редактировать</button>`);
                 $('#exec_body').append(newRow); 
                 $.fancybox.close();
+                $.fancybox.open("Исполнитель добавлен");
             },
             error: (error) => {
                 console.log(JSON.stringify(error));
