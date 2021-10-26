@@ -19,12 +19,15 @@ class Tableoperation
                 ],
                 'order' => [
                     'ID' => 'ASC'
+                ],
+                'filter' => [
+                    'ID' => $id
                 ]
             ]
         )->Fetch();
     }
 
-    public function getExecutor()
+    public function getExecutors()
     {
         Loader::includeModule('highloadblock');
 
@@ -51,7 +54,7 @@ class Tableoperation
         return $arData;
     }
 
-    public function getState()
+    public function getStates()
     {
         Loader::includeModule('highloadblock');
 
@@ -77,6 +80,56 @@ class Tableoperation
         return $arData;
     }
 
+    public function getState($id)
+    {
+        Loader::includeModule('highloadblock');
+
+        $hlbl = 7; 
+        $hlblock = HighloadBlockTable::getById($hlbl)->fetch(); 
+        $entity = HighloadBlockTable::compileEntity($hlblock); 
+        $entity_data_class = $entity->getDataClass(); 
+        $arData = $entity_data_class::getList(
+            [
+                'select' => [
+                    'ID',
+                    'UF_STATE_NAME'
+                ],
+                'order' => [
+                    'ID' => 'ASC'
+                ],
+                'filter' => [
+                    'ID' => $id
+                ]
+            ]
+        )->Fetch();
+        return $arData['UF_STATE_NAME'];
+    }
+    public function getExecutor($id)
+    {
+        Loader::includeModule('highloadblock');
+
+        $hlbl = 6; 
+        $hlblock = HighloadBlockTable::getById($hlbl)->fetch(); 
+        $entity = HighloadBlockTable::compileEntity($hlblock); 
+        $entity_data_class = $entity->getDataClass(); 
+        $arData = $entity_data_class::getList(
+            [
+                'select' => [
+                    'ID',
+                    'UF_NAME_EXECUTOR'
+                ],
+                'order' => [
+                    'ID' => 'ASC'
+                ],
+                'filter' => [
+                    'ID' => $id
+                ]
+            ]
+        )->Fetch();
+        return $arData['UF_NAME_EXECUTOR'];
+    }
+
+
     public function Delete($id,$type)
     {
         Loader::includeModule("highloadblock"); 
@@ -92,7 +145,13 @@ class Tableoperation
         if ($data) {
             $result = $class::update($id, $data);
             if ($result->isSuccess()) {
-                return self::encodeData($hbId,$data);
+                $value = self::encodeData($hbId,$data);
+                if ($type='task') {
+                    $value['EXECUTOR_NAME'] = self::getExecutor($value['EXECUTOR']);
+                    $value['STATE_NAME'] = self::getState($value['STATE']);
+                }
+                $value['ID'] = $result->getId();
+                return $value;
             } else {
                 return $result->getErrors();
             }
@@ -108,7 +167,13 @@ class Tableoperation
         if ($data) {
             $result = $class::add($data);
             if ($result->isSuccess()) {
-                return self::encodeData($hbId,$data);
+                $value = self::encodeData($hbId,$data);
+                if ($type='task') {
+                    $value['EXECUTOR_NAME'] = self::getExecutor($value['EXECUTOR']);
+                    $value['STATE_NAME'] = self::getState($value['STATE']);
+                }
+                $value['ID'] = $result->getId();
+                return $value;
             } else {
                 return $result->getErrors();
             }

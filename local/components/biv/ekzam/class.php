@@ -29,8 +29,14 @@ class CEkzam extends CBitrixComponent
         foreach ($arTask as $key => $task) {
             $build[$key] = [
                 'NAME' => $task['NAME'],
-                'EXECUTOR' => $arExec[$task['EXECUTOR']]['NAME'],
-                'STATE' => $arState[$task['STATE']]['NAME'],
+                'EXECUTOR' => [
+                    'NAME' => $arExec[$task['EXECUTOR']]['NAME'],
+                    'ID' => $task['EXECUTOR']
+                ],
+                'STATE' => [
+                    'NAME' => $arState[$task['STATE']]['NAME'],
+                    'ID' => $task['STATE']
+                ],
                 'DESCRIPTION' => $task['DESCRIPTION']
             ];
         }

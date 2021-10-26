@@ -16,13 +16,13 @@
                     <th scope="col"><?=GetMessage('TASK_ADMIN_COLUMN')?></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id='task_body'>
                     <?foreach ($arResult['TASKS'] as $key => $task):?>
                         <tr class='table' data-row_id='<?=$key?>' data-type='task'>
                             <th scope="row" class='task-id'><?=$key?></th>
                             <td class='task-name'><?=$task['NAME']?></td>
-                            <td class='task-state'><?=$task['STATE']?></td>
-                            <td class='task-executor'><?=$task['EXECUTOR']?></td>
+                            <td class='task-state' data-exec_id='<?=$task['STATE']['ID']?>'><?=$task['STATE']['NAME']?></td>
+                            <td class='task-executor' data-exec_id='<?=$task['EXECUTOR']['ID']?>'><?=$task['EXECUTOR']['NAME']?></td>
                             <td class='task-descr'><?=$task['DESCRIPTION']?></td>
                             <td class='task-buttons'>
                                 <button type="button" class="btn btn-primary delete" data-id='<?=$key?>' data-type='task'>
@@ -54,13 +54,13 @@
                     <th scope="col"><?=GetMessage('EXEC_ADMIN_COLUMN')?></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id='exec_body'>
                     <?foreach ($arResult['EXECUTORS'] as $key => $exec):?>
                         <tr class='table' data-row_id='<?=$key?>' data-type='exec'>
                             <th scope="row" class='exec-id'><?=$key?></th>
-                            <td class='exec-name'><?=$exec['NAME']?></td>
-                            <td class='exec-poasition'><?=$exec['POSITION']?></td>
-                            <td class='task-buttons'>
+                            <td class='exec-name'><span><?=$exec['NAME']?></span></td>
+                            <td class='exec-position'><?=$exec['POSITION']?></td>
+                            <td class='exec-buttons'>
                                 <button type="button" class="btn btn-primary delete" data-id='<?=$key?>' data-type='exec'>
                                     <?=GetMessage('BUTTON_DELETE');?>
                                 </button>

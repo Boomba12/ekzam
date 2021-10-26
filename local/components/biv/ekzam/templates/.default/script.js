@@ -50,7 +50,7 @@ $(document).ready(function() {
             type: 'ajax',		
             src: '/ajax/tasks/ajax_add_form_exec.php',
             success: function(data) {
-                console.log(data);
+                console.log('YEAH');
             },
         });
         return false;
@@ -69,7 +69,7 @@ $(document).ready(function() {
                }
             }
         });
-       // return false;
+        return false;
     })
 
     $('.update[data-type="exec"]').click(function(e) {

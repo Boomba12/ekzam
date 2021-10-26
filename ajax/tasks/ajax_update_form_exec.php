@@ -10,7 +10,6 @@ $type = $request->get('type');
 $arResult = Tableoperation::getFields($id,$type);
 ?>
 <div class="wind" id="form">
-    <form>
         <div class="mb-3">
             <label class="form-label">Имя</label>
             <input type="text" class="form-control" name='NAME' value='<?=$arResult['UF_NAME_EXECUTOR']?>'>
@@ -20,7 +19,6 @@ $arResult = Tableoperation::getFields($id,$type);
             <input type="text" class="form-control" name='POSITION' value='<?=$arResult['UF_POSITION_EXECUTOR']?>'>
         </div>
         <button id="exec_update_button" class="btn btn-primary">Обновить</button>
-    </form>
 </div>
 
 <script>
@@ -42,7 +40,9 @@ $arResult = Tableoperation::getFields($id,$type);
                     'data': $data
                 },
                 success: function(data) {
-                    alert('Успешно обновлено');
+                    $(`tr[data-row_id="${data['ID']}"]`).find('.exec-position').text(`${data['POSITION']}`);
+                    $(`tr[data-row_id="${data['ID']}"]`).find('.exec-name').text(`${data['NAME']}`);
+                    $('#task_body').find(`.task-executor[data-exec_id="${data['ID']}"]`).text(`${data['NAME']}`);
                     $.fancybox.close();
                 },
                 error: (error) => {

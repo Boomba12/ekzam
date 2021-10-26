@@ -4,8 +4,8 @@ Ekzam\Tableoperation;
 
 require_once($_SERVER['DOCUMENT_ROOT'].'/bitrix/modules/main/include/prolog_before.php');
 
-$arExec = Tableoperation::getExecutor();
-$arState = Tableoperation::getState();
+$arExec = Tableoperation::getExecutors();
+$arState = Tableoperation::getStates();
 ?>
 <div class="wind" id="form">
     <div class="mb-3">
@@ -53,7 +53,17 @@ $arState = Tableoperation::getState();
                     'data': $data
                 },
                 success: function(data) {
-                    alert('Успешно добавлено');
+                    var newRow = $(`<tr class='table' data-row_id='${data['ID']}' data-type='task'></tr>`)
+                        .append(`<th scope='row' class='exec-id'>${data['ID']}</th>`)
+                        .append(`<td class='task-name'>${data['NAME']}</td>`)
+                        .append(`<td class='task-state' data-exec_id='${data['STATE']}'>${data['STATE_NAME']}</td>`)
+                        .append(`<td class='task-executor' data-exec_id='${data['EXECUTOR']}'>${data['EXECUTOR_NAME']}</td>`)
+                        .append(`<td class='task-descr'>${data['DESCRIPTION']}</td>`)
+                        .append(`<td class='task-buttons'></td>`);
+                        $(newRow).find('.task-buttons').append(`<button type='button' class='btn btn-primary delete' data-id='${data['ID']}' data-type='task'>Удалить</button>`)
+                        .append(' ')
+                        .append(`<button type='button' class='btn btn-primary update' data-id='${data['ID']}' data-type='task'>Редактировать</button>`);
+                    $('#task_body').append(newRow); 
                     $.fancybox.close();
                 },
                 error: (error) => {

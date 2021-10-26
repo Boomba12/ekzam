@@ -9,8 +9,8 @@ $request = Context::getCurrent()->getRequest();
 $id = $request->get('id');
 $type = $request->get('type');
 $arResult = Tableoperation::getFields($id,$type);
-$arExec = Tableoperation::getExecutor();
-$arState = Tableoperation::getState();
+$arExec = Tableoperation::getExecutors();
+$arState = Tableoperation::getStates();
 ?>
 <div class="wind" id="form">
     <div class="mb-3">
@@ -59,7 +59,10 @@ $arState = Tableoperation::getState();
                     'data': $data
                 },
                 success: function(data) {
-                    alert('Успешно обновлено');
+                    $(`tr[data-row_id="${data['ID']}"]`).find('.task-name').text(`${data['NAME']}`);
+                    $(`tr[data-row_id="${data['ID']}"]`).find('.task-state').text(`${data['STATE_NAME']}`);
+                    $(`tr[data-row_id="${data['ID']}"]`).find('.task-executor').text(`${data['EXECUTOR_NAME']}`);
+                    $(`tr[data-row_id="${data['ID']}"]`).find('.task-descr').text(`${data['DESCRIPTION']}`);
                     $.fancybox.close();
                 },
                 error: (error) => {

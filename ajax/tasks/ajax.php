@@ -16,8 +16,8 @@ if ($event == 'delete') {
 } elseif ($event == 'add') {
     $table = $request->get('type');
     $data = $request->get('data');
-    if(Tableoperation::Add($table,$data)) {
-        echo json_encode('Y');
+    if ($answer = Tableoperation::Add($table,$data)) {
+        echo json_encode($answer);
     } else {
         echo json_encode('N');
     }
@@ -25,8 +25,8 @@ if ($event == 'delete') {
     $id = $request->get('id');
     $table = $request->get('type');
     $data = $request->get('data');
-    if(Tableoperation::Update($id,$table,$data)) {
-        echo json_encode('Y');
+    if($answer = Tableoperation::Update($id,$table,$data)) {
+        echo json_encode($answer);
     } else {
         echo json_encode('N');
     }
