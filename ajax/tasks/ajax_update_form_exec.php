@@ -23,8 +23,8 @@ $arResult = Tableexecoperation::getFields($id);
 </div>
 
 <script>
-    $(document).ready(function() {
-        $('#exec_update_button').click(function(e) {
+    $(document).off('click',('#exec_update_button'));
+    $(document).on('click','#exec_update_button',function(e) {
             e.preventDefault();
             var $data = {};
             $('#form').find ('input, select').each(function() {
@@ -51,5 +51,4 @@ $arResult = Tableexecoperation::getFields($id);
                 }
             });
         })
-    });
 </script>

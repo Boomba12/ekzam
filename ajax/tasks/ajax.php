@@ -15,11 +15,17 @@ if ($event == 'delete') {
     $id = $request->get('id');
     $table = $request->get('type');
     if ($type=='exec') {
-        Tableexecoperation::Delete($id);
+        if (!Tabletaskoperation::getAccessDelete($id)) {
+            echo json_encode('Удалить невозможно. Исполнитель занят');
+        } else {
+            Tableexecoperation::Delete($id);
+            echo json_encode('Y');
+        }
     } elseif($type=='task') {
         Tabletaskoperation::Delete($id);
+        echo json_encode('Y');
     }
-    echo json_encode('Y');
+  
 } elseif ($event == 'add') {
 
     $table = $request->get('type');
@@ -43,9 +49,9 @@ if ($event == 'delete') {
     $data = $request->get('data');
 
     if ($table =='exec') {
-        $answer = Tableexecoperation::Add($id,$data);
+        $answer = Tableexecoperation::Update($id,$data);
     } elseif ($table == 'task') {
-        $answer = Tabletaskoperation::Add($id,$data);
+        $answer = Tabletaskoperation::Update($id,$data);
     }
 
     if ($answer) {

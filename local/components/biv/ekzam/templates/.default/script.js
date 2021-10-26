@@ -13,8 +13,12 @@ $(document).on('click','.delete',function(e) {
             'event': 'delete'
         },
         success: function(data) {
+            if (data != 'Y') {
+                alert(data);
+            } else {
             $(`tr[data-row_id="${id}"][data-type="${type}"]`).remove();
-            alert('Успешно');
+                alert('Успешно');
+            }
         },
         error: (error) => {
             console.log(JSON.stringify(error));

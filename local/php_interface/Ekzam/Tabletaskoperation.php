@@ -18,6 +18,30 @@ class Tabletaskoperation
         return $entity->getDataClass(); 
     }
 
+    public function getAccessDelete($id)
+    {
+        Loader::includeModule('highloadblock');
+        $class = self::getDataClass();
+        $dbResult =  $class::getList(
+            [
+                'select' => [
+                    '*'
+                ],
+                'order' => [
+                    'ID' => 'ASC'
+                ],
+                'filter' => [
+                    'UF_TASK_EXECUTOR' => $id
+                ]
+            ]
+        )->Fetch();
+        if ($dbResult) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public function getFields($id)
     {
         Loader::includeModule('highloadblock');

@@ -38,8 +38,9 @@ $arState = Tablestateoperation::getStates();
 </div>
 
 <script>
-    $(document).ready(function() {
-        $('#task_add_button').click(function(e) {
+    $(document).off('click',('#task_add_button'));
+
+    $(document).on('click','#task_add_button',function(e)  {
             e.preventDefault();
             var $data = {};
             $('#form').find ('input, select').each(function() {
@@ -73,7 +74,4 @@ $arState = Tablestateoperation::getStates();
                 }
             });
         })
-
-        
-    });
 </script>

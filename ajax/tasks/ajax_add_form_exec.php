@@ -14,38 +14,39 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/bitrix/modules/main/include/prolog_befo
 </div>
 
 <script>
-    $(document).ready(function() {
-        $('#exec_add_button').click(function(e) {
-            e.preventDefault();
-            var $data = {};
-            $('#form').find ('input, select').each(function() {
-                $data[this.name] = $(this).val();
-            });
-            $.ajax({
-                method: "GET",
-                url: "/ajax/tasks/ajax.php",
-                dataType: "json",
-                data: {
-                    'type': 'exec',
-                    'event': 'add',
-                    'data': $data
-                },
-                success: function(data) {
-                    var newRow = $(`<tr class='table' data-row_id='${data['ID']}' data-type='exec'></tr>`)
-                        .append(`<th scope='row' class='exec-id'>${data['ID']}</th>`)
-                        .append(`<td class='exec-name'>${data['NAME']}</td>`)
-                        .append(`<td class='exec-position'>${data['POSITION']}</td>`)
-                        .append(`<td class='exec-buttons'></td>`);
-                        $(newRow).find('.exec-buttons').append(`<button type='button' class='btn btn-primary delete' data-id='${data['ID']}' data-type='exec'>Удалить</button>`)
-                        .append(' ')
-                        .append(`<button type='button' class='btn btn-primary update' data-id='${data['ID']}' data-type='exec'>Редактировать</button>`);
-                    $('#exec_body').append(newRow); 
-                    $.fancybox.close();
-                },
-                error: (error) => {
-                    console.log(JSON.stringify(error));
-                }
-            });
-        })
-    });
+    $(document).off('click',('#exec_add_button'));
+   
+    $(document).on('click','#exec_add_button',function(e) {
+        e.preventDefault();
+        var $data = {};
+        $('#form').find ('input, select').each(function() {
+            $data[this.name] = $(this).val();
+        });
+        $.ajax({
+            method: "GET",
+            url: "/ajax/tasks/ajax.php",
+            dataType: "json",
+            data: {
+                'type': 'exec',
+                'event': 'add',
+                'data': $data
+            },
+            success: function(data) {
+                var newRow = $(`<tr class='table' data-row_id='${data['ID']}' data-type='exec'></tr>`)
+                    .append(`<th scope='row' class='exec-id'>${data['ID']}</th>`)
+                    .append(`<td class='exec-name'>${data['NAME']}</td>`)
+                    .append(`<td class='exec-position'>${data['POSITION']}</td>`)
+                    .append(`<td class='exec-buttons'></td>`);
+                    $(newRow).find('.exec-buttons').append(`<button type='button' class='btn btn-primary delete' data-id='${data['ID']}' data-type='exec'>Удалить</button>`)
+                    .append(' ')
+                    .append(`<button type='button' class='btn btn-primary update' data-id='${data['ID']}' data-type='exec'>Редактировать</button>`);
+                $('#exec_body').append(newRow); 
+                $.fancybox.close();
+            },
+            error: (error) => {
+                console.log(JSON.stringify(error));
+            }
+        });
+    })
+
 </script>

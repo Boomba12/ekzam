@@ -11,7 +11,7 @@ class Tableexecoperation
     {
         $settings = Settings::getInstance();
         Loader::includeModule("highloadblock"); 
-        $hlblock = HighloadBlockTable::getById($settings['execHLBlockId'])->Fetch();
+        $hlblock = HighloadBlockTable::getById($settings['execHLBlockId'])->fetch();
         $entity = HighloadBlockTable::compileEntity($hlblock); 
         return $entity->getDataClass(); 
     }
@@ -62,7 +62,7 @@ class Tableexecoperation
     {
         Loader::includeModule('highloadblock');
         $class = self::getDataClass(); 
-        $arData = $class::getList(
+        $dbResult = $class::getList(
             [
                 'select' => [
                     'ID',
@@ -76,7 +76,7 @@ class Tableexecoperation
                 ]
             ]
         )->Fetch();
-        return $arData['UF_NAME_EXECUTOR'];
+        return $dbResult['UF_NAME_EXECUTOR'];
     }
 
     public function Delete($id)

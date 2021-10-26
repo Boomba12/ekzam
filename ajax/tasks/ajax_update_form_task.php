@@ -30,7 +30,7 @@ $arState = Tablestateoperation::getStates();
         <label class="form-label">Исполнитель</label>
         <select class="form-select" aria-label="Исполнитель" name="EXECUTOR">
             <?foreach($arExec as $key => $exec):?>
-                <option value="<?=$key?>" <?($key == $arResult['UF_TASK_STATE']) ? 'selected' : ''?>><?=$exec['NAME']?></option>
+                <option value="<?=$key?>" <?=($key == $arResult['UF_TASK_EXECUTOR']) ? 'selected' : ''?>><?=$exec['NAME']?></option>
             <?endforeach;?>
         </select>
     </div>
@@ -42,8 +42,9 @@ $arState = Tablestateoperation::getStates();
 </div>
 
 <script>
-    $(document).ready(function() {
-        $('#task_update_button').click(function(e) {
+    $(document).off('click',('#task_update_button'));
+ 
+    $(document).on('click','#task_update_button',function(e)  {
             e.preventDefault();
             var $data = {};
             $('#form').find ('input, select').each(function() {
@@ -72,5 +73,5 @@ $arState = Tablestateoperation::getStates();
             });
         })
         
-    });
+
 </script>
