@@ -80,6 +80,8 @@
         </div>
     </div>
 </div>
-<button type="button" class="btn btn-primary test" data-id='1' data-type='task'>Test</button>
+
+
+
 
 

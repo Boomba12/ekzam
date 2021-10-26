@@ -1,13 +1,15 @@
 <?php
-use Bitrix\Main\Context, 
-    Ekzam\Tableoperation;
+use Bitrix\Main\Context,
+    Ekzam\Tablestateoperation,
+    Ekzam\Tableexecoperation, 
+    Ekzam\Tabletaskoperation;
 
 require_once($_SERVER['DOCUMENT_ROOT'].'/bitrix/modules/main/include/prolog_before.php');
 
 $request = Context::getCurrent()->getRequest();
 $id = $request->get('id');
 $type = $request->get('type');
-$arResult = Tableoperation::getFields($id,$type);
+$arResult = Tabletaskoperation::getFields($id);
 ?>
 <div class="wind" id="form">
         <div class="mb-3">

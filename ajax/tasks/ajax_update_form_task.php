@@ -1,16 +1,18 @@
 <?php
 
-use Bitrix\Main\Context, 
-    Ekzam\Tableoperation;
+use Bitrix\Main\Context,
+    Ekzam\Tablestateoperation,
+    Ekzam\Tableexecoperation, 
+    Ekzam\Tabletaskoperation;
 
 require_once($_SERVER['DOCUMENT_ROOT'].'/bitrix/modules/main/include/prolog_before.php');
 
 $request = Context::getCurrent()->getRequest();
 $id = $request->get('id');
 $type = $request->get('type');
-$arResult = Tableoperation::getFields($id,$type);
-$arExec = Tableoperation::getExecutors();
-$arState = Tableoperation::getStates();
+$arResult = Tabletaskoperation::getFields($id);
+$arExec = Tableexecoperation::getExecutors();
+$arState = Tablestateoperation::getStates();
 ?>
 <div class="wind" id="form">
     <div class="mb-3">
@@ -70,5 +72,6 @@ $arState = Tableoperation::getStates();
                 }
             });
         })
+        
     });
 </script>
